@@ -4,6 +4,7 @@ import '../../constants/app_colors.dart';
 import '../../constants/app_constants.dart';
 import '../../providers/auth_provider.dart';
 import '../../widgets/custom_app_bar.dart';
+import '../../widgets/avatar_widget.dart';
 import 'profile_screen.dart';
 import 'change_password_screen.dart';
 import 'about_screen.dart';
@@ -30,19 +31,15 @@ class SettingsScreen extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Row(
                 children: [
-                  CircleAvatar(
+                  // Sử dụng AvatarWidget thay vì CircleAvatar cũ
+                  AvatarWidget(
+                    avatarUrl: user.avatarUrl,
+                    fallbackText: user.fullName,
                     radius: 30,
                     backgroundColor: AppColors.primary,
-                    child: user.avatarUrl != null
-                        ? null // TODO: Hiển thị ảnh đại diện từ URL
-                        : Text(
-                            user.fullName.substring(0, 1).toUpperCase(),
-                            style: const TextStyle(
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
+                    onTap: () {
+                      Navigator.pushNamed(context, ProfileScreen.routeName);
+                    },
                   ),
                   const SizedBox(width: 16),
                   Expanded(
